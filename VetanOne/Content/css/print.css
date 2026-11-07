@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Print — payslip and report print views. Link this only on print pages,
+   or wrap in @media print if shared with the screen bundle.
+   ========================================================================== */
+
+@media print {
+  .hr-sidebar, .hr-header, .hr-page-header__actions,
+  .hr-filter-bar, .hr-action-bar, .no-print { display: none !important; }
+
+  .hr-app { display: block; }
+  .hr-content { padding: 0; max-width: none; }
+
+  body { background: #fff; font-size: 12px; }
+  .hr-card { border: none; }
+
+  a[href]::after { content: none !important; }
+}

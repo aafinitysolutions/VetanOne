@@ -1,0 +1,647 @@
+﻿/* =====================================================================
+   20. DASHBOARD
+   Paste at the END of theme.css (after theme-additions.css).
+   Uses only existing tokens; no new colours.
+   ===================================================================== */
+
+/* ---- greeting + quick actions ---- */
+.dash-greet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.dash-greet-text {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+}
+
+.dash-greet-sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.qa-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+    .qa-chip i {
+        color: var(--primary);
+        font-size: 14px;
+    }
+
+    .qa-chip:hover {
+        background: var(--primary-soft);
+        border-color: var(--primary-soft);
+        color: var(--primary);
+    }
+
+    .qa-chip:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+/* ---- card head ---- */
+.dash-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.dash-card-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+}
+
+.dash-card-sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 2px;
+}
+
+.dash-link {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+    .dash-link:hover {
+        text-decoration: underline;
+    }
+
+/* ---- attendance today ---- */
+.att-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.att-number {
+    font-family: var(--font-display);
+    font-size: 46px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+    .att-number small {
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink-soft);
+        margin-left: 8px;
+    }
+
+.seg-bar {
+    display: flex;
+    gap: 2px;
+    height: 12px;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    background: var(--neutral-soft);
+}
+
+    .seg-bar span {
+        display: block;
+        height: 100%;
+    }
+
+.seg-present {
+    background: var(--primary);
+}
+
+.seg-leave {
+    background: var(--accent);
+}
+
+.seg-absent {
+    background: var(--danger);
+}
+
+.seg-off {
+    background: var(--border-strong);
+}
+
+.seg-legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 14px 0 20px;
+}
+
+    .seg-legend > div {
+        font-size: 12px;
+        color: var(--ink-soft);
+    }
+
+    .seg-legend b {
+        display: block;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+    }
+
+.lg-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.shift-list {
+    display: grid;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.shift-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 96px;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+}
+
+.shift-name {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+    .shift-name small {
+        display: block;
+        font-weight: 400;
+        font-size: 11.5px;
+        color: var(--ink-faint);
+    }
+
+.shift-count {
+    text-align: right;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+}
+
+    .shift-count b {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+/* ---- payroll cycle (the one dark card, echoing the sidebar) ---- */
+.pay-card {
+    height: 100%;
+    padding: 22px;
+    border-radius: var(--radius-l);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: radial-gradient(circle at 100% 0%, rgba(79,227,193,.16), transparent 55%), var(--sb-bg);
+    color: var(--sb-text);
+}
+
+    .pay-card h3 {
+        color: #fff;
+        font-size: 18px;
+        margin: 0;
+    }
+
+.pay-sub {
+    font-size: 12.5px;
+    margin-top: 2px;
+}
+
+.pay-pct {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+    .pay-pct b {
+        font-family: var(--font-display);
+        font-size: 38px;
+        font-weight: 600;
+        color: #fff;
+        line-height: 1;
+    }
+
+    .pay-pct span {
+        font-size: 12.5px;
+    }
+
+.pay-bar {
+    height: 8px;
+    border-radius: var(--radius-pill);
+    background: rgba(255,255,255,.1);
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+    .pay-bar span {
+        display: block;
+        height: 100%;
+        border-radius: var(--radius-pill);
+        background: var(--sb-active-text);
+    }
+
+.pay-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+}
+
+    .pay-steps li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        font-size: 13px;
+    }
+
+.ps-ico {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid rgba(255,255,255,.22);
+    color: transparent;
+    font-size: 12px;
+}
+
+.pay-steps li.done .ps-ico {
+    background: var(--sb-active-text);
+    border-color: var(--sb-active-text);
+    color: var(--sb-bg);
+}
+
+.pay-steps li.now .ps-ico {
+    border-color: var(--sb-active-text);
+    box-shadow: 0 0 0 4px rgba(79,227,193,.16);
+}
+
+.ps-name {
+    color: var(--sb-text-strong);
+    font-weight: 500;
+}
+
+.ps-meta {
+    display: block;
+    font-size: 11.5px;
+    margin-top: 1px;
+}
+
+.pay-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+    .pay-foot small {
+        font-size: 12px;
+    }
+
+.btn-mint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: var(--radius-s);
+    background: var(--sb-active-text);
+    color: var(--sb-bg);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: filter .15s ease;
+}
+
+    .btn-mint:hover {
+        filter: brightness(.92);
+        color: var(--sb-bg);
+    }
+
+/* ---- KPI extras (tiles themselves come from .kpi-tile) ---- */
+.kpi-delta {
+    font-weight: 600;
+}
+
+    .kpi-delta.up {
+        color: var(--success);
+    }
+
+    .kpi-delta.down {
+        color: var(--danger);
+    }
+
+/* ---- charts (SVG drawn by script; colours come from these classes) ---- */
+.chart-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+    .chart-svg .gl {
+        stroke: var(--border);
+        stroke-width: 1;
+    }
+
+    .chart-svg .ax {
+        fill: var(--ink-faint);
+        font-family: var(--font-body);
+        font-size: 11px;
+    }
+
+    .chart-svg .ax-strong {
+        fill: var(--ink);
+        font-weight: 600;
+    }
+
+    .chart-svg .bar {
+        fill: var(--primary);
+    }
+
+        .chart-svg .bar.off {
+            fill: var(--border-strong);
+        }
+
+        .chart-svg .bar.today {
+            fill: var(--accent);
+        }
+
+    .chart-svg .bar-hit {
+        fill: transparent;
+    }
+
+        .chart-svg .bar-hit:hover + .bar, .chart-svg .bar:hover {
+            opacity: .8;
+        }
+
+.donut-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+    .donut-wrap svg {
+        width: 168px;
+        height: 168px;
+    }
+
+.dn-track {
+    fill: none;
+    stroke: var(--neutral-soft);
+    stroke-width: 18;
+}
+
+.dn-seg {
+    fill: none;
+    stroke-width: 18;
+}
+
+.dn-0 {
+    stroke: var(--primary);
+}
+
+.dn-1 {
+    stroke: var(--brand);
+}
+
+.dn-2 {
+    stroke: var(--accent);
+}
+
+.dn-3 {
+    stroke: var(--border-strong);
+}
+
+.lg-0 {
+    background: var(--primary);
+}
+
+.lg-1 {
+    background: var(--brand);
+}
+
+.lg-2 {
+    background: var(--accent);
+}
+
+.lg-3 {
+    background: var(--border-strong);
+}
+
+.donut-total {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 600;
+    fill: var(--ink);
+}
+
+.donut-cap {
+    font-family: var(--font-body);
+    font-size: 11px;
+    fill: var(--ink-faint);
+}
+
+.mix-legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: grid;
+    gap: 9px;
+}
+
+    .mix-legend li {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        color: var(--ink-soft);
+    }
+
+        .mix-legend li span:nth-child(2) {
+            flex: 1;
+        }
+
+    .mix-legend b {
+        color: var(--ink);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+    }
+
+/* ---- department bars ---- */
+.dept-row {
+    display: grid;
+    grid-template-columns: 112px 1fr 44px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 13px;
+    font-size: 13px;
+}
+
+    .dept-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .dept-row .dept-count {
+        text-align: right;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+    }
+
+/* ---- generic list ---- */
+.dash-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .dash-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+        .dash-list li:first-child {
+            padding-top: 0;
+        }
+
+        .dash-list li:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+.dl-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.dl-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dl-sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dl-end {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.date-tile {
+    width: 44px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+}
+
+    .date-tile b {
+        font-family: var(--font-display);
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    .date-tile span {
+        font-size: 10.5px;
+        color: var(--ink-faint);
+        font-weight: 600;
+    }
+
+.dash-subhead {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin: 18px 0 10px;
+}
+
+.dash-card-head + .dash-subhead {
+    margin-top: 0;
+}
+
+.dash-card-note {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin: 14px 0 0;
+}
+
+@media (max-width: 575px) {
+    .seg-legend {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .shift-row {
+        grid-template-columns: 1fr 90px;
+    }
+
+        .shift-row .bar-track-v1 {
+            grid-column: 1 / -1;
+            grid-row: 2;
+        }
+
+    .att-number {
+        font-size: 38px;
+    }
+}

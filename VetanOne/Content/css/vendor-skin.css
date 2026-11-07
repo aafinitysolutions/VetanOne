@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Vendor skin — Select2, flatpickr, SweetAlert2 matched to tokens.
+   Load after the vendor's own CSS.
+   ========================================================================== */
+
+/* ---------- Select2 ---------- */
+.select2-container--default .select2-selection--single {
+  height: var(--ctl-h);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-control);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--s3);
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  padding: 0;
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  line-height: normal;
+}
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+  color: var(--c-text-muted);
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: var(--ctl-h);
+  right: var(--s2);
+}
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--single {
+  border-color: var(--c-primary);
+  box-shadow: var(--ring-primary);
+}
+.select2-container--default.select2-container--disabled .select2-selection--single {
+  background: var(--c-disabled-bg);
+}
+
+/* Multi-select */
+.select2-container--default .select2-selection--multiple {
+  min-height: var(--ctl-h);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-control);
+  padding: 3px var(--s2);
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background: var(--c-primary-soft);
+  border: none;
+  color: var(--c-primary);
+  border-radius: 4px;
+  font-size: var(--fs-small);
+  padding: 2px 6px;
+}
+
+/* Dropdown panel */
+.select2-dropdown {
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-control);
+  box-shadow: var(--shadow-pop);
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  height: var(--ctl-h-sm);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-control);
+  font-size: var(--fs-base);
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.select2-container--default .select2-results__option[aria-selected="true"] {
+  background: var(--c-surface-2);
+  color: var(--c-text-2);
+}
+.select2-results__option { font-size: var(--fs-base); padding: var(--s2) var(--s3); }
+
+/* Error state hook: add .is-invalid to the original <select>, JS mirrors it to the container */
+.select2-container.is-invalid .select2-selection--single,
+.select2-container.is-invalid .select2-selection--multiple {
+  border-color: var(--c-danger);
+}
+
+/* ---------- flatpickr ---------- */
+.flatpickr-calendar {
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-pop);
+  border: 1px solid var(--c-border);
+  font-size: var(--fs-base);
+}
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+}
+.flatpickr-day.inRange {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary-soft);
+  box-shadow: -5px 0 0 var(--c-primary-soft), 5px 0 0 var(--c-primary-soft);
+}
+.flatpickr-day:hover { background: var(--c-surface-2); }
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  color: var(--c-text);
+}
+.flatpickr-weekday { color: var(--c-text-muted); font-weight: var(--fw-semibold); }
+.flatpickr-input.form-control, input.hr-date { background-image: none; }
+
+/* Calendar icon inside our date fields (input-group style) */
+.hr-date-wrap { position: relative; }
+.hr-date-wrap .hr-date-icon {
+  position: absolute;
+  right: var(--s3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--c-text-muted);
+  pointer-events: none;
+}
+
+/* ---------- SweetAlert2 ---------- */
+.swal2-popup {
+  border-radius: var(--r-modal) !important;
+  font-family: var(--font) !important;
+  box-shadow: var(--shadow-modal) !important;
+}
+.swal2-title { font-size: var(--fs-section) !important; color: var(--c-text) !important; }
+.swal2-html-container { font-size: var(--fs-base) !important; color: var(--c-text-2) !important; }
+.swal2-confirm.swal2-styled {
+  background: var(--c-primary) !important;
+  border-radius: var(--r-control) !important;
+  font-size: var(--fs-base) !important;
+  font-weight: var(--fw-medium) !important;
+  padding: 8px 18px !important;
+}
+.swal2-confirm.swal2-styled:focus { box-shadow: var(--ring-primary) !important; }
+.swal2-deny.swal2-styled, .swal2-cancel.swal2-styled {
+  background: var(--c-surface) !important;
+  color: var(--c-text-2) !important;
+  border: 1px solid var(--c-border-strong) !important;
+  border-radius: var(--r-control) !important;
+  font-size: var(--fs-base) !important;
+  padding: 8px 18px !important;
+}
+.swal2-icon.swal2-warning { border-color: var(--c-warning) !important; color: var(--c-warning) !important; }
+.swal2-icon.swal2-error { border-color: var(--c-danger) !important; color: var(--c-danger) !important; }
+.swal2-icon.swal2-success [class^='swal2-success-line'] { background-color: var(--c-success) !important; }
+.swal2-icon.swal2-success .swal2-success-ring { border-color: var(--c-success-border) !important; }
+
+/* Toast mixin — top-right, quiet */
+.swal2-toast {
+  border-radius: var(--r-card) !important;
+  box-shadow: var(--shadow-pop) !important;
+  padding: var(--s3) var(--s4) !important;
+}
+.swal2-toast .swal2-title { font-size: var(--fs-base) !important; font-weight: var(--fw-medium) !important; }

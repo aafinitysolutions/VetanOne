@@ -1,0 +1,764 @@
+﻿<%@ Master Language="VB"
+    AutoEventWireup="false"
+    CodeBehind="Site1.master.vb"
+    Inherits="VetanOne.Site1" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+
+    <title>VetanOne</title>
+
+    <meta name="viewport"
+        content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               minimum-scale=1.0,
+               user-scalable=no" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="PATHSHALA ERP" />
+    <meta name="theme-color" content="#141B1F" />
+
+    <link href="Css/5.3.3bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <link href="Css/theme.css" rel="stylesheet" />
+
+    <script src="Script/5.3.3bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        try {
+            if (localStorage.getItem('vetanSidebarCollapsed') === '1') {
+                document.documentElement.classList.add('sb-collapsed');
+            }
+            var savedTheme = localStorage.getItem('vetanTheme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        } catch (e) { }
+    </script>
+
+
+    <style>
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--ink);
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
+        }
+
+        :root {
+            --sb-w: 244px;
+            --sb-w-collapsed: 68px;
+            --sb-gap: 12px;
+            --mt-h: 56px;
+            --ph-h: 78px;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        #sidebar {
+            position: fixed;
+            top: var(--sb-gap);
+            left: var(--sb-gap);
+            bottom: var(--sb-gap);
+            width: var(--sb-w);
+            background: var(--sb-bg);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            z-index: 9998;
+            transition: width .22s ease, transform .25s ease;
+            box-shadow: var(--shadow-m);
+        }
+
+        .sb-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 16px 16px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            flex-shrink: 0;
+        }
+
+        .brand-mark {
+            width: 32px; height: 32px;
+            border-radius: 9px;
+            background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; overflow: hidden;
+        }
+        .brand-mark img { width: 26px; height: 26px; object-fit: contain; }
+
+        .sb-brand-title {
+            font-family: var(--font-display);
+            font-size: 18px; font-weight: 600;
+            color: #fff; white-space: nowrap;
+        }
+
+        .sb-head .theme-toggle-v1 { margin-left: auto; }
+
+        .sb-toggle {
+            width: 26px; height: 26px;
+            border: 0; border-radius: 7px;
+            background: transparent;
+            color: var(--sb-text);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            transition: background .15s ease, transform .22s ease;
+        }
+        .sb-toggle:hover { background: rgba(255,255,255,.06); color: #fff; }
+
+        .sb-nav {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 10px 10px 8px;
+        }
+        .sb-nav::-webkit-scrollbar { width: 0; }
+
+        #sidebar .sidebar-menu { list-style: none; padding: 0; margin: 0; }
+        #sidebar .sidebar-menu li { list-style: none; margin: 0; padding: 0; position: relative; }
+
+        #sidebar .sidebar-menu .menu-header {
+            padding: 16px 12px 6px;
+            color: rgba(255,255,255,.32);
+            font-size: 10px; font-weight: 600; letter-spacing: .7px;
+        }
+
+        #sidebar .sidebar-menu > li > a,
+        #sidebar .sidebar-menu .has-submenu > a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            margin-bottom: 2px;
+            border-radius: 10px;
+            color: var(--sb-text);
+            text-decoration: none;
+            font-size: 14px; font-weight: 500;
+            transition: background .15s ease, color .15s ease;
+        }
+
+        #sidebar .sidebar-menu > li > a > i:first-child,
+        #sidebar .sidebar-menu .has-submenu > a > i:first-child {
+            width: 20px; min-width: 20px; text-align: center; font-size: 17px;
+        }
+
+        #sidebar .sidebar-menu a .lbl { flex: 1; white-space: nowrap; }
+
+        #sidebar .sidebar-menu > li > a:hover,
+        #sidebar .sidebar-menu .has-submenu > a:hover {
+            background: rgba(255,255,255,.06);
+            color: var(--sb-text-strong);
+        }
+
+        #sidebar .sidebar-menu > li > a.active,
+        #sidebar .sidebar-menu .has-submenu.has-active > a {
+            background: var(--sb-active-bg);
+            color: var(--sb-active-text);
+        }
+
+        #sidebar .sidebar-menu .menu-arrow {
+            margin-left: auto; font-size: 11px;
+            transition: transform .2s ease;
+        }
+        #sidebar .sidebar-menu .has-submenu.open > a .menu-arrow { transform: rotate(180deg); }
+
+        #sidebar .sidebar-menu .submenu {
+            display: none;
+            list-style: none;
+            margin: 2px 0 6px 22px;
+            padding: 2px 0 2px 12px;
+            border-left: 1px solid rgba(255,255,255,.08);
+        }
+        #sidebar .sidebar-menu .has-submenu.open > .submenu { display: block; }
+
+        #sidebar .sidebar-menu .submenu li a {
+            display: block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--sb-text);
+            text-decoration: none;
+            font-size: 13px; font-weight: 400;
+            transition: background .15s ease, color .15s ease;
+        }
+        #sidebar .sidebar-menu .submenu li a:hover { background: rgba(255,255,255,.06); color: #fff; }
+        #sidebar .sidebar-menu .submenu li a.active { color: var(--sb-active-text); background: rgba(79,227,193,.08); }
+
+        .sb-user {
+            position: relative;
+            flex-shrink: 0;
+            border-top: 1px solid rgba(255,255,255,.08);
+            padding: 12px;
+        }
+
+        .sb-user-btn {
+            display: flex; align-items: center; gap: 10px;
+            padding: 6px; border-radius: 10px; cursor: pointer;
+        }
+        .sb-user-btn:hover { background: rgba(255,255,255,.06); }
+
+        .user-img {
+            width: 34px; height: 34px;
+            border-radius: 50%; object-fit: cover;
+            border: 2px solid rgba(255,255,255,.14);
+            flex-shrink: 0; background: #22303A;
+        }
+
+        .sb-user-info { min-width: 0; line-height: 1.25; }
+        .sb-user-info strong {
+            display: block; color: #fff; font-size: 13px; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sb-user-info small {
+            display: block; color: var(--sb-text); font-size: 11.5px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            left: 12px; right: 12px; bottom: calc(100% - 4px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-m);
+            overflow: hidden;
+            z-index: 99999;
+        }
+        .user-dropdown.show { display: block; }
+
+        .user-dropdown a {
+            display: flex; align-items: center; gap: 11px;
+            padding: 11px 15px;
+            color: var(--ink); text-decoration: none;
+            font-size: 13.5px; font-weight: 500;
+            border-bottom: 1px solid var(--border);
+        }
+        .user-dropdown a i { width: 18px; text-align: center; color: var(--ink-faint); }
+        .user-dropdown a:hover { background: var(--bg); }
+        .user-dropdown a.logout-link { color: var(--danger); font-weight: 600; border-bottom: 0; }
+        .user-dropdown a.logout-link i { color: var(--danger); }
+        .user-dropdown a.logout-link:hover { background: var(--danger-soft); }
+
+
+        /* =====================================================
+           MOBILE TOPBAR
+           ===================================================== */
+
+        .mobile-topbar {
+            display: none;
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--mt-h);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            align-items: center; gap: 12px;
+            padding: 0 14px;
+            z-index: 9990;
+        }
+        #menuBtn {
+            background: none; border: none; font-size: 24px;
+            color: var(--ink); cursor: pointer; line-height: 1; padding: 0;
+        }
+        .mobile-topbar .mt-brand {
+            font-family: var(--font-display); font-weight: 600; font-size: 17px;
+        }
+
+        #backdrop {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(20,27,31,.45);
+            z-index: 9997;
+        }
+
+
+        /* =====================================================
+           FIXED IN-PAGE HEADER  (position:fixed, not sticky —
+           always pinned; .page-content is padded to clear it)
+           ===================================================== */
+
+        .page-header-v1 {
+            position: fixed;
+            top: 0;
+            left: calc(var(--sb-w) + var(--sb-gap) * 2);
+            right: 0;
+            height: var(--ph-h);
+            z-index: 9989;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: left .22s ease;
+        }
+
+        .page-header-v1-left { min-width: 0; }
+
+        .page-eyebrow {
+            display: block;
+            font-size: 11.5px; font-weight: 600;
+            letter-spacing: .8px; text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 3px;
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 24px; font-weight: 500;
+            color: var(--ink); margin: 0;
+            white-space: nowrap;
+        }
+
+        .page-header-v1-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .page-header-v1-right:empty { display: none; }
+
+
+        /* =====================================================
+           CONTENT — offset by sidebar width + fixed header height,
+           this is the element that actually scrolls
+           ===================================================== */
+
+        .page-content {
+            margin-left: calc(var(--sb-w) + var(--sb-gap) * 2);
+            padding: calc(var(--ph-h) + 24px) 30px 40px;
+            min-height: 100vh;
+            transition: margin-left .22s ease;
+        }
+
+
+        /* =====================================================
+           DESKTOP COLLAPSED (icon-only)
+           ===================================================== */
+
+        @media (min-width: 992px) {
+
+            html.sb-collapsed #sidebar { width: var(--sb-w-collapsed); }
+            html.sb-collapsed .page-content {
+                margin-left: calc(var(--sb-w-collapsed) + var(--sb-gap) * 2);
+            }
+            html.sb-collapsed .page-header-v1 {
+                left: calc(var(--sb-w-collapsed) + var(--sb-gap) * 2);
+            }
+
+            html.sb-collapsed #sidebar { overflow: visible; }
+
+            html.sb-collapsed .sb-head { flex-direction: column; padding: 14px 0 12px; gap: 10px; }
+            html.sb-collapsed .sb-brand-title,
+            html.sb-collapsed #sidebar .sidebar-menu .lbl,
+            html.sb-collapsed #sidebar .sidebar-menu .menu-arrow,
+            html.sb-collapsed #sidebar .sidebar-menu .menu-header,
+            html.sb-collapsed .sb-user-info { display: none; }
+
+            html.sb-collapsed .sb-toggle { margin-left: 0; transform: rotate(180deg); }
+
+            html.sb-collapsed #sidebar .sidebar-menu > li > a,
+            html.sb-collapsed #sidebar .sidebar-menu .has-submenu > a {
+                justify-content: center;
+                padding: 11px 0;
+            }
+
+            html.sb-collapsed .sb-user-btn { justify-content: center; padding: 4px 0; }
+
+            html.sb-collapsed #sidebar .sidebar-menu .submenu {
+                position: absolute;
+                left: calc(100% + 14px);
+                top: 0;
+                min-width: 210px;
+                margin: 0;
+                padding: 8px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                box-shadow: var(--shadow-m);
+            }
+
+            html.sb-collapsed #sidebar .sidebar-menu .submenu::before {
+                content: attr(data-title);
+                display: block;
+                padding: 6px 10px 4px;
+                font-size: 10.5px; font-weight: 600;
+                letter-spacing: .5px; text-transform: uppercase;
+                color: var(--ink-faint);
+            }
+
+            html.sb-collapsed #sidebar .sidebar-menu .submenu li a { color: var(--ink); }
+            html.sb-collapsed #sidebar .sidebar-menu .submenu li a:hover { background: var(--primary-soft); color: var(--primary); }
+            html.sb-collapsed #sidebar .sidebar-menu .submenu li a.active { background: var(--primary-soft); color: var(--primary); }
+
+            html.sb-collapsed .user-dropdown {
+                left: calc(100% + 14px); right: auto; bottom: 8px; width: 230px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE / TABLET  (< 992px)
+           ===================================================== */
+
+        @media (max-width: 991px) {
+
+            .mobile-topbar { display: flex; }
+            .sb-toggle { display: none; }
+
+            #sidebar {
+                top: 0; left: 0; bottom: 0;
+                border-radius: 0 18px 18px 0;
+                width: 270px;
+                transform: translateX(-110%);
+            }
+            #sidebar.open { transform: translateX(0); }
+
+            .page-header-v1 {
+                left: 0;
+                top: var(--mt-h);
+                padding: 0 16px;
+                height: 68px;
+            }
+
+            .page-title { font-size: 19px; }
+
+            .page-content {
+                margin-left: 0;
+                padding: calc(var(--mt-h) + 68px + 18px) 16px 32px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="backdrop"></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+         ========================================================= -->
+
+    <nav id="sidebar">
+
+        <div class="sb-head">
+            <div class="brand-mark"><img src="Logo/Logo.png" alt="" /></div>
+            <div class="sb-brand-title">Vetan One</div>
+            <button type="button" class="theme-toggle-v1" id="themeToggle" title="Toggle dark mode">
+                <i class="bi bi-moon-stars icon-dark"></i>
+                <i class="bi bi-sun icon-light"></i>
+            </button>
+            <button type="button" class="sb-toggle" id="sbToggle" title="Collapse sidebar">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+        </div>
+
+        <div class="sb-nav">
+            <ul class="sidebar-menu">
+
+                <li>
+                    <a href="Dashboard.aspx">
+                        <i class="bi bi-speedometer2"></i>
+                        <span class="lbl">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-header"><span>MASTERS</span></li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" onclick="toggleMenu(this);">
+                        <i class="bi bi-database"></i>
+                        <span class="lbl">Masters</span>
+                        <i class="bi bi-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu" data-title="Masters">
+                        <li><a href="CommonMaster.aspx">Common Master</a></li>
+                        <li><a href="CompanyMaster.aspx">Company Master</a></li>
+                        <li><a href="CustomerMaster.aspx">Customer Master</a></li>
+                        <li><a href="StatutorySettings.aspx">Statutory Settings</a></li>
+                        <li><a href="EmployeeMaster.aspx">Employee Master</a></li>
+                        <li><a href="SalaryHeading.aspx">Salary Heading</a></li>
+                        <li><a href="SalaryMaster.aspx">Salary Master</a></li>
+                        <li><a href="HolidayMaster.aspx">Holiday Master</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-header"><span>EMPLOYEE</span></li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" onclick="toggleMenu(this);">
+                        <i class="bi bi-people"></i>
+                        <span class="lbl">Employee & Leave</span>
+                        <i class="bi bi-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu" data-title="Employee & Leave">
+                        <li><a href="LeaveAllotment.aspx">Leave Allotment</a></li>
+                        <li><a href="LeaveApplication.aspx">Leave Application</a></li>
+                        <li><a href="LeaveApproval.aspx">Leave Approval</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" onclick="toggleMenu(this);">
+                        <i class="bi bi-cash-stack"></i>
+                        <span class="lbl">Employee Advance</span>
+                        <i class="bi bi-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu" data-title="Employee Advance">
+                        <li><a href="AdvanceRequest.aspx">Advance Request</a></li>
+                        <li><a href="AdvanceApproval.aspx">Advance Approval</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="AttendanceUpload.aspx">
+                        <i class="bi bi-calendar-check"></i>
+                        <span class="lbl">Attendance Upload</span>
+                    </a>
+                </li>
+
+                <li class="menu-header"><span>PAYROLL</span></li>
+
+                <li>
+                    <a href="SalaryProcess.aspx">
+                        <i class="bi bi-calculator"></i>
+                        <span class="lbl">Salary Process</span>
+                    </a>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" onclick="toggleMenu(this);">
+                        <i class="bi bi-door-open"></i>
+                        <span class="lbl">Separation</span>
+                        <i class="bi bi-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu" data-title="Separation">
+                        <li><a href="Resignation.aspx">Resignation</a></li>
+                        <li><a href="FullAndFinal.aspx">Full & Final Settlement</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-header"><span>REPORTS</span></li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" onclick="toggleMenu(this);">
+                        <i class="bi bi-bar-chart"></i>
+                        <span class="lbl">Reports</span>
+                        <i class="bi bi-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu" data-title="Reports">
+                        <li><a href="PayrollRegister.aspx">Payroll Register</a></li>
+                        <li><a href="Payslip.aspx">Payslip</a></li>
+                        <li><a href="PFRegister.aspx">PF Register</a></li>
+                        <li><a href="ESICRegister.aspx">ESIC Register</a></li>
+                        <li><a href="PTRegister.aspx">PT Register</a></li>
+                        <li><a href="LWFRegister.aspx">LWF Register</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-header"><span>ADMINISTRATION</span></li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0);" onclick="toggleMenu(this);">
+                        <i class="bi bi-shield-lock"></i>
+                        <span class="lbl">Administration</span>
+                        <i class="bi bi-chevron-down menu-arrow"></i>
+                    </a>
+                    <ul class="submenu" data-title="Administration">
+                        <li><a href="UserMaster.aspx">User Master</a></li>
+                        <li><a href="MenuAccess.aspx">Menu Access</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="sb-user">
+
+            <div id="userMenu" class="user-dropdown">
+                <a href="Profile.aspx">
+                    <i class="bi bi-person-circle"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="ChangePassword.aspx">
+                    <i class="bi bi-key"></i>
+                    <span>Change Password</span>
+                </a>
+                <a href="Login.aspx" class="logout-link">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+            <div class="sb-user-btn" onclick="toggleUserMenu()">
+                <img src="<%= If(Session("ImagePath") IsNot Nothing AndAlso
+                                         Not String.IsNullOrEmpty(Session("ImagePath").ToString()),
+                                         ResolveUrl(Session("ImagePath").ToString()),
+                                         ResolveUrl("~/Images/no-photo.png")) %>"
+                    class="user-img" alt="" />
+
+                <div class="sb-user-info">
+                    <strong><%= Session("UserName") %></strong>
+                    <small><%= Session("EmailId") %></small>
+                </div>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <form id="form1" runat="server">
+
+        <div class="mobile-topbar">
+            <button type="button" id="menuBtn">&#9776;</button>
+            <span class="mt-brand">Vetan One</span>
+        </div>
+
+        <!-- FIXED PAGE HEADER — position:fixed pins this to the viewport
+             regardless of DOM nesting, so it can stay inside the form
+             (server controls placed in HeaderActions will postback fine) -->
+
+        <div class="page-header-v1">
+            <div class="page-header-v1-left">
+                <span class="page-eyebrow" id="pageEyebrow">Overview</span>
+                <h1 class="page-title"><%= Page.Title %></h1>
+            </div>
+            <div class="page-header-v1-right">
+                <asp:ContentPlaceHolder ID="HeaderActions" runat="server" />
+            </div>
+        </div>
+
+        <div class="page-content">
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+        </div>
+
+    </form>
+
+
+    <script>
+
+        var sidebar = document.getElementById('sidebar');
+        var backdrop = document.getElementById('backdrop');
+        var menuBtn = document.getElementById('menuBtn');
+        var sbToggle = document.getElementById('sbToggle');
+        var themeToggle = document.getElementById('themeToggle');
+        var root = document.documentElement;
+
+        themeToggle.onclick = function (e) {
+            e.stopPropagation();
+            var goingDark = root.getAttribute('data-theme') !== 'dark';
+            if (goingDark) {
+                root.setAttribute('data-theme', 'dark');
+            } else {
+                root.removeAttribute('data-theme');
+            }
+            try { localStorage.setItem('vetanTheme', goingDark ? 'dark' : 'light'); } catch (err) { }
+        };
+
+        function isDesktop() { return window.innerWidth >= 992; }
+        function isCollapsed() { return isDesktop() && root.classList.contains('sb-collapsed'); }
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            backdrop.style.display = 'block';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            backdrop.style.display = 'none';
+        }
+        menuBtn.onclick = function (e) {
+            e.preventDefault(); e.stopPropagation();
+            if (sidebar.classList.contains('open')) { closeSidebar(); } else { openSidebar(); }
+        };
+        backdrop.onclick = function () { closeSidebar(); };
+
+        function toggleMenu(element) {
+            var parent = element.parentElement;
+            var wasOpen = parent.classList.contains('open');
+            document.querySelectorAll('#sidebar .has-submenu.open').forEach(function (li) {
+                if (li !== parent) li.classList.remove('open');
+            });
+            parent.classList.toggle('open', !wasOpen);
+        }
+
+        sbToggle.onclick = function (e) {
+            e.stopPropagation();
+            var nowCollapsed = !root.classList.contains('sb-collapsed');
+            root.classList.toggle('sb-collapsed', nowCollapsed);
+            try { localStorage.setItem('vetanSidebarCollapsed', nowCollapsed ? '1' : '0'); } catch (err) { }
+            document.querySelectorAll('#sidebar .has-submenu.open').forEach(function (li) { li.classList.remove('open'); });
+            if (!nowCollapsed) openActiveGroup();
+        };
+
+        function toggleUserMenu() {
+            document.getElementById('userMenu').classList.toggle('show');
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.sb-user')) {
+                document.getElementById('userMenu').classList.remove('show');
+            }
+            if (isCollapsed() && !e.target.closest('#sidebar')) {
+                document.querySelectorAll('#sidebar .has-submenu.open').forEach(function (li) { li.classList.remove('open'); });
+            }
+        };
+
+        function openActiveGroup() {
+            var active = document.querySelector('#sidebar .submenu a.active');
+            if (active && !isCollapsed()) {
+                active.closest('.has-submenu').classList.add('open');
+            }
+        }
+
+        (function markActive() {
+            var current = (location.pathname.split('/').pop() || '').toLowerCase();
+            if (!current) return;
+
+            var links = document.querySelectorAll('#sidebar .sidebar-menu a[href$=".aspx"]');
+            for (var i = 0; i < links.length; i++) {
+                var href = (links[i].getAttribute('href') || '').toLowerCase();
+                if (href === current) {
+                    links[i].classList.add('active');
+
+                    var group = links[i].closest('.has-submenu');
+                    if (group) group.classList.add('has-active');
+
+                    var node = (group || links[i].parentElement);
+                    while (node && !(node.classList && node.classList.contains('menu-header'))) {
+                        node = node.previousElementSibling;
+                    }
+                    var eyebrow = document.getElementById('pageEyebrow');
+                    if (eyebrow && node) eyebrow.textContent = node.textContent.trim();
+                    break;
+                }
+            }
+            openActiveGroup();
+        })();
+
+    </script>
+
+</body>
+
+</html>

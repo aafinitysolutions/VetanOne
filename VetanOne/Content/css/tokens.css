@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Vetan One HRMS — Design Tokens
+   Every other CSS file reads these variables. Do not hardcode colors,
+   spacing, or radii anywhere else — add a token here instead.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand / primary ---- */
+  --c-primary: #0F766E;
+  --c-primary-hover: #115E59;
+  --c-primary-active: #0C4A44;
+  --c-primary-soft: #E6F4F1;
+  --c-primary-soft-hover: #D3ECE7;
+
+  /* ---- Sidebar (dark rail) ---- */
+  --c-nav-bg: #0F1B20;
+  --c-nav-bg-2: #14232A;
+  --c-nav-text: #A9B8BF;
+  --c-nav-text-muted: #6B7D85;
+  --c-nav-active-bg: rgba(45, 212, 191, 0.12);
+  --c-nav-active: #5EEAD4;
+  --c-nav-border: rgba(255, 255, 255, 0.06);
+
+  /* ---- Neutrals / surfaces ---- */
+  --c-bg: #F4F6F7;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #F8FAFB;
+  --c-border: #E2E8EB;
+  --c-border-strong: #C5CFD5;
+
+  /* ---- Text ---- */
+  --c-text: #17262E;
+  --c-text-2: #566872;
+  --c-text-muted: #84949E;
+  --c-text-disabled: #A8B4BA;
+  --c-disabled-bg: #EEF1F3;
+  --c-on-primary: #FFFFFF;
+
+  /* ---- Status: text color / soft background ---- */
+  --c-success: #15803D;
+  --c-success-bg: #DCFCE7;
+  --c-success-border: #BBF0CD;
+
+  --c-warning: #B45309;
+  --c-warning-bg: #FEF3C7;
+  --c-warning-border: #FCE29B;
+
+  --c-danger: #B91C1C;
+  --c-danger-bg: #FEE2E2;
+  --c-danger-border: #FBC9C9;
+
+  --c-info: #1D4ED8;
+  --c-info-bg: #DBEAFE;
+  --c-info-border: #BFDAFC;
+
+  --c-neutral: #475569;
+  --c-neutral-bg: #E8EDF1;
+  --c-neutral-border: #D7DEE3;
+
+  /* ---- Typography ---- */
+  --font: "Inter", "Segoe UI", Arial, sans-serif;
+  --fs-page: 20px;
+  --fs-section: 15px;
+  --fs-card: 14px;
+  --fs-base: 13px;
+  --fs-small: 12px;
+  --fs-tiny: 11px;
+
+  --lh-base: 1.5;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  /* ---- Spacing (4px scale) ---- */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s7: 32px;
+  --s8: 40px;
+
+  /* ---- Shape ---- */
+  --r-control: 6px;
+  --r-card: 8px;
+  --r-modal: 12px;
+  --r-pill: 999px;
+
+  /* ---- Control sizing ---- */
+  --ctl-h: 34px;
+  --ctl-h-sm: 28px;
+  --ctl-h-lg: 40px;
+
+  /* ---- Shadows (popovers/toasts/modals only — never on cards) ---- */
+  --shadow-pop: 0 4px 16px rgba(15, 27, 32, 0.12);
+  --shadow-modal: 0 12px 32px rgba(15, 27, 32, 0.20);
+
+  /* ---- Layout ---- */
+  --sidebar-w: 232px;
+  --sidebar-w-collapsed: 64px;
+  --header-h: 52px;
+  --content-max-w: 1600px;
+
+  /* ---- Focus ring ---- */
+  --ring-primary: 0 0 0 3px rgba(15, 118, 110, 0.18);
+  --ring-danger: 0 0 0 3px rgba(185, 28, 28, 0.16);
+
+  /* ---- Bootstrap 5 variable overrides ----
+     Bootstrap reads these directly, so components (buttons, forms,
+     tables, badges, modals, tabs) pick up our palette automatically. */
+  --bs-primary: var(--c-primary);
+  --bs-primary-rgb: 15, 118, 110;
+  --bs-success: var(--c-success);
+  --bs-warning: var(--c-warning);
+  --bs-danger: var(--c-danger);
+  --bs-info: var(--c-info);
+  --bs-secondary: var(--c-neutral);
+
+  --bs-body-font-family: var(--font);
+  --bs-body-font-size: var(--fs-base);
+  --bs-body-color: var(--c-text);
+  --bs-body-bg: var(--c-bg);
+  --bs-border-color: var(--c-border);
+  --bs-border-radius: var(--r-control);
+  --bs-border-radius-sm: 4px;
+  --bs-border-radius-lg: var(--r-card);
+  --bs-link-color: var(--c-primary);
+  --bs-link-hover-color: var(--c-primary-hover);
+}

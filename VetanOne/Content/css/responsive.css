@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Responsive — desktop-first. ERP target is 1366x768 and up; these rules
+   only handle the narrower cases (smaller laptops, tablets).
+   ========================================================================== */
+
+@media (max-width: 1366px) {
+  .hr-content { padding: var(--s4) var(--s5); }
+  .hr-stat-row { gap: var(--s3); }
+}
+
+@media (max-width: 992px) {
+  .hr-header__search { display: none; }
+  .hr-filter-bar__field { width: 150px; }
+}
+
+@media (max-width: 768px) {
+  .hr-page-header { flex-direction: column; }
+  .hr-stat-row { grid-template-columns: 1fr 1fr; }
+  .offcanvas { width: 100%; }
+}
